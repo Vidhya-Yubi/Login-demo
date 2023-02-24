@@ -8,9 +8,8 @@ Sample demo on login for authenticated users
 * Logut page -> logs the user out of the app.
 
 ## Rails
-* User API - contains name, email and password as column names in users table.
-* Login API - authenticates the user using hashing algorithm (bcrypt is installed)
-* Signup API - adds new user into the database (postgresql is used)
+* User API - contains name, email and password as column names in users table and adds new user into the database (postgresql is used).
+* Login API - authenticates the user using hashing algorithm (bcrypt is installed) 
 * Logout API - loggs out the user from current session generated.
 
 Postman was used to verify the working logic of API's before integrating with React.
