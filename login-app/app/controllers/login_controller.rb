@@ -13,9 +13,9 @@ class LoginController < ApplicationController
             if (uval.authenticate(params[:password]))
                 session[:current_user_id] = uval.id
 
-                render json: "Status 200:Successful login!!"
+                render json: "Successful login!!", status: 200
             else
-                render json: "Status 401:Error!"
+                render json: "Error!", status: 401
             end
 
         end
