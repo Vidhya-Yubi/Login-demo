@@ -70,5 +70,67 @@ Associations - Rails - https://www.youtube.com/watch?v=Ym6j82fKZgA
 
 
 https://github.com/gaja-git/HeroViredJobPortal-Private 
-https://github.com/Harimedha 
+1. Dir["#{Rails.root}/app/models/concerns/constants/*.rb"].each { |f| require f }.   This code is a Ruby code snippet that uses the Dir class to get a list of files that match a specified pattern (all .rb files) in the directory #{Rails.root}/app/models/concerns/constants/. The #{Rails.root} is a Ruby on Rails convention that evaluates to the root directory of the Rails application.
+The each method is then called on the resulting list of files, and the require method is called on each file to load it into memory. This code is typically used in Rails applications to load constants defined in files located in the specified directory, making them available to the application at runtime.
+In summary, this code dynamically requires all Ruby files located in the constants subdirectory of the concerns directory under app/models in a Ruby on Rails application.
+
+CONCERNS:
+there are several areas where concerns can be useful:
+1. Code reuse: Concerns allow you to extract common code from your models, controllers, or other components and share it across different parts of your application. This can help reduce duplication and make your code more maintainable.
+2. Modularity: By using concerns, you can break down your application into smaller, more manageable modules, which can be easier to understand and modify. This can also help with collaboration, as different developers can work on different parts of the application without stepping on each other's toes.
+3. Organization: Concerns can also help you keep your code organized and structured, which can make it easier to navigate and understand.
+To use concerns in Rails, you can create a module with the shared code and include it in your models or controllers using the include method. For example:
+# app/controllers/concerns/searchable.rb
+
+module Searchable
+  def search(query)
+    # ...
+  end
+end
+
+# app/controllers/posts_controller.rb
+
+class PostsController < ApplicationController
+  include Searchable
+  
+  def index
+    @posts = Post.search(params[:q])
+  end
+end
+In this example, the Searchable module defines a search method that can be used to search for posts. By including this module in the PostsController, the search method becomes available in the controller's actions.
+
+2.class Transaction
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::EmbeddedErrors
+  include Mongoid::Search
+  include Constants::Transaction
+  include ModelIdentity
+  include Publishable
+  include Filterable
+  include TransactionStatistics
+  include Transactions::Dashboard
+  publishable
+This is a Ruby on Rails code that defines a class named Transaction. The class includes several modules using the include keyword, which are used to add functionality to the class. Here's what each module does:
+* Mongoid::Document: This is a module provided by the mongoid gem that adds MongoDB document support to the class. This allows the class to be saved and retrieved from a MongoDB database.
+* Mongoid::Timestamps: This is another module provided by the mongoid gem that adds created_at and updated_at timestamps to the class. These timestamps are automatically updated when the document is created or updated.
+* Mongoid::EmbeddedErrors: This module provides a way to handle validation errors for embedded documents in MongoDB.
+* Mongoid::Search: This module adds full-text search capabilities to the class using MongoDB's built-in text search functionality.
+* Constants::Transaction: This is a module defined in the app/models/concerns/constants/transaction.rb file that includes constants related to transactions.
+* ModelIdentity: This is a module defined in the app/models/concerns/model_identity.rb file that adds a UUID-based ID to the class.
+* Publishable: This is a module defined in the app/models/concerns/publishable.rb file that adds functionality to publish and unpublish the document.
+* Filterable: This is a module defined in the app/models/concerns/filterable.rb file that adds support for filtering the document.
+* TransactionStatistics: This is a module defined in the app/models/concerns/transaction_statistics.rb file that adds methods to calculate various statistics related to transactions.
+* Transactions::Dashboard: This is a module defined in the app/models/concerns/transactions/dashboard.rb file that adds dashboard-related methods to the class.
+Finally, the publishable method is called, which is likely a custom method defined somewhere in the codebase that further modifies the behavior of the class related to publishing. 
+
+3.attr_accessor :skip_oms_callbacks
+  cattr_accessor :transaction_types
+attr_accessor and cattr_accessor are Ruby methods used to define getter and setter methods for instance and class variables, respectively.
+In the code snippet, attr_accessor is used to define an instance variable skip_oms_callbacks. This creates a getter and setter method for the variable, allowing the value to be read and updated from outside the class.
+cattr_accessor is used to define a class variable transaction_types. This creates a getter and setter method for the class variable, allowing the value to be read and updated from anywhere in the codebase. The c in cattr_accessor stands for class, which distinguishes it from attr_accessor used for instance variables.
+In summary, these lines of code create two accessor methods in the class: skip_oms_callbacks to access the instance variable @skip_oms_callbacks, and transaction_types to access the class variable @@transaction_types.
+
+What is the difference between class variables and class instance variables? The main difference is the behavior concerning inheritance: class variables are shared between a class and all its subclasses, while class instance variables only belong to one specific class.
+ 
 
